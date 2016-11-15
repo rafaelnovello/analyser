@@ -1,0 +1,6 @@
+<a href="{% url 'document-create' %}">Adicionar</a>
+<ul>
+{% for doc in documents %}
+	<li><a href="{% url 'document-detail' doc.id %}">{{ doc.name }}</a></li>
+{% endfor %} 
+</ul>

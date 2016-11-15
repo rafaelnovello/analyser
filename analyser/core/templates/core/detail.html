@@ -1,0 +1,27 @@
+<p>Nome: {{document.name}}</p>
+<p>Arquivo: {{document.docfile}}</p>
+<br>
+<p>Colunas: {{shape.c}}</p>
+<p>Linhas: {{shape.l}}</p>
+<table border=1>
+	<thead>
+		{% for col in head.columns %}
+			<th>{{col}}</th>
+		{% endfor %}
+	</thead>
+	<tbody>
+			<tr>
+			{% for col in head.columns %}
+				<td><a href="groupby/{{col}}/">Agrupar</a></td>
+			{% endfor %}
+			</tr>
+		{% for line in head.as_matrix %}
+			<tr>
+				{% for cel in line %}
+					<td>{{cel}}</td>
+				{% endfor %}
+			</tr>
+		{% endfor %}
+	</tbody>
+
+</table>

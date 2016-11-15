@@ -1,0 +1,21 @@
+<p>Nome: {{document.name}}</p>
+<p>Coluna: {{column}}</p>
+<br>
+
+<table border=1>
+	<thead>
+		{% for col in grouped.columns %}
+			<th>{{col}}</th>
+		{% endfor %}
+	</thead>
+	<tbody>
+		{% for line in grouped.as_matrix %}
+			<tr>
+				{% for cel in line %}
+					<td>{{cel}}</td>
+				{% endfor %}
+			</tr>
+		{% endfor %}
+	</tbody>
+
+</table>
