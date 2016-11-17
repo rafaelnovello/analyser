@@ -1,0 +1,23 @@
+<p>Nome: {{doc.name}}</p>
+<br>
+
+<table border=1>
+	<thead>
+			<th>Coluna</th>
+		{% for col in data.columns %}
+			<th>{{col}}</th>
+		{% endfor %}
+	</thead>
+	<tbody>
+		{% for name, values in data.iterrows %}
+			<tr>
+					<td>{{name}}</td>
+				{% for val in values %}
+					<td>{{val|floatformat:2}}</td>
+				{% endfor %}
+			</tr>
+		{% endfor %}
+	</tbody>
+
+
+</table>
