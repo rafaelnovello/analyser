@@ -1,21 +1,34 @@
-<p>Nome: {{document.name}}</p>
-<p>Coluna: {{column}}</p>
-<br>
+{% extends "base.html" %}
+{% load i18n l10n %}
+{% block content %}
 
-<table border=1>
-	<thead>
-		{% for col in grouped.columns %}
-			<th>{{col}}</th>
-		{% endfor %}
-	</thead>
-	<tbody>
-		{% for line in grouped.as_matrix %}
-			<tr>
-				{% for cel in line %}
-					<td>{{cel}}</td>
-				{% endfor %}
-			</tr>
-		{% endfor %}
-	</tbody>
+<div class="row">
+	<div class="col-md-10 col-md-offset-1">
+		<div class="col-md-7">
+			<h3>{% trans "Nome - Coluna" %}: {{document.name}} - {{column}}</h3>
+		</div>
+		<div class="col-md-2 pull-right">
+			<p class="pull-right"><a href="{% url 'document-detail' document.id %}" class="btn btn-primary">{% trans "Voltar" %}</a></p>
+		</div>
+		<div class="table-responsive">  
+			<table class="table table-bordered table-hover table-striped">
+				<thead>
+					{% for col in grouped.columns %}
+						<th>{{col}}</th>
+					{% endfor %}
+				</thead>
+				<tbody>
+					{% for line in grouped.as_matrix %}
+						<tr>
+							{% for cel in line %}
+								<td>{{cel}}</td>
+							{% endfor %}
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
 
-</table>
+{% endblock %}
