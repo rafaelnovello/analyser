@@ -1,18 +1,29 @@
-<form action="" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {% if form.errors %}
-    <div class="alert alert-danger">
-        <button type="button" class="close" data-dismiss="alert">×</button>
-        <strong>Existem alguns campos que precisam de sua atenção</strong>.
-    </div>
-    {% endif %}
+{% extends "base.html" %}
+{% load i18n l10n %}
+{% block content %}
+{% load bootstrap3 %}
 
-    {{ form.as_p }}
-
-    <div class="form-group">
-        <div class="col-sm-offset-3 col-sm-9">
-            <a href="/core/" class="btn btn-danger">Cancelar</a>
-            <input type="submit" class="btn btn-success" id="send_campaign" value="Enviar">
-        </div>
+<div class="row">
+    <div class="col-sm-offset-4 col-sm-8">
+        <form role="form" class="form-horizontal pull-left" action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% if form.errors %}
+            <div class="alert alert-danger">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <strong>{% trans "Existem alguns campos que precisam de sua atenção" %}</strong>.
+            </div>
+            {% endif %}
+            <p class="text-center">{% trans "Carregue seu arquivo no formato CSV" %}</p>
+            <br/>
+            {% bootstrap_form form layout="horizontal" %}
+            <div class="form-group">
+                <div class="col-sm-offset-3 col-sm-9">
+                    <a href="{% url 'index' %}" class="btn btn-default">{% trans "Cancelar" %}</a>
+                    <button type="submit" class="btn btn-primary">{% trans "Adicionar" %}</button>
+                </div>
+            </div>
+        </form>
     </div>
-</form>
+</div>
+
+{% endblock %}
