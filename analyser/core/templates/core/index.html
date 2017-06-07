@@ -1,6 +1,30 @@
-<a href="{% url 'document-create' %}">Adicionar</a>
-<ul>
-{% for doc in documents %}
-	<li><a href="{% url 'document-detail' doc.id %}">{{ doc.name }}</a></li>
-{% endfor %} 
-</ul>
+{% extends "base.html" %}
+{% load i18n l10n %}
+{% block content %}
+
+<div class="row">
+	<div class="col-md-10 col-md-offset-1">
+		<p>{% trans "Adicione uma planilha ou acesse um relatório" %}</p>
+		<p class="pull-right"><a href="{% url 'document-create' %}" class="btn btn-primary">{% trans "Adicionar" %}</a></p>
+		<div class="table-responsive">  
+			<table class="table table-bordered table-hover table-striped">
+				<thead>
+					<tr>
+						<th>{% trans "Nome" %}</th>
+						<th>{% trans "Arquivo" %}</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for doc in documents %}
+					<tr>
+						<td><a href="{% url 'document-detail' doc.id %}">{{ doc.name }}</a></td>
+						<td>{{ doc.docfile }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,47 @@
+{% load i18n l10n %}
+{% load staticfiles %}
+<!DOCTYPE html>
+<!--[if lt IE 7 ]> <html lang="pt-br" class="ie6 ielt8"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="pt-br" class="ie7 ielt8"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="pt-br" class="ie8"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--> <html lang="pt-br"> <!--<![endif]-->
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="">
+		<meta name="author" content="Rafael Novello">
+		{% block meta%} {% endblock %}
+		
+		<title>{% block title %}Spreadsheet Analizer{% endblock %}</title>
+		<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+		<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+		<!--[if lt IE 9]>
+		<script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<script src="{% static "mailerweb/js/cc3-mediaqueries.js" %}"></script>
+		<![endif]-->
+		<!--script src="//code.jquery.com/jquery-1.10.2.min.js"></script-->
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+		{% block css %}{% endblock %}
+		{% block js %}{% endblock %}
+	</head>
+	<body>
+		<div id="wrapper">
+			<div class="row text-center">
+				<h1>
+					<p>{% trans "Spreadsheet Analizer" %}</p>
+				</h1>
+			</div>
+			<div id="page-wrapper" style="margin-top: 30px;">
+				{% block content %}{% endblock %}
+			</div>
+		</div>
+		<footer id="footer">
+			<div class="row">
+				<div class="col-xs-offset-4 col-xs-8 text-right">
+				</div>
+			</div>
+		</footer>
+	</body>
+</html>

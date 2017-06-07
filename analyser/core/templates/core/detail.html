@@ -1,28 +1,45 @@
-<p>Nome: {{document.name}}</p>
-<p>Arquivo: {{document.docfile}}</p>
-<br>
-<p>Colunas: {{shape.c}}</p>
-<p>Linhas: {{shape.l}}</p>
-<p><a href="numstats/">Estatísticas Numéricas</a></p>
-<table border=1>
-	<thead>
-		{% for col in head.columns %}
-			<th>{{col}}</th>
-		{% endfor %}
-	</thead>
-	<tbody>
-			<tr>
-			{% for col in head.columns %}
-				<td><a href="groupby/{{col}}/">Agrupar</a></td>
-			{% endfor %}
-			</tr>
-		{% for line in head.as_matrix %}
-			<tr>
-				{% for cel in line %}
-					<td>{{cel}}</td>
-				{% endfor %}
-			</tr>
-		{% endfor %}
-	</tbody>
+{% extends "base.html" %}
+{% load i18n l10n %}
+{% block content %}
 
-</table>
+<div class="row">
+	<div class="col-md-10 col-md-offset-1">
+		<div class="col-md-7">
+			<p><strong>{% trans "Nome" %}: {{document.name}}</strong></p>
+			<p><strong>{% trans "Arquivo" %}: {{document.docfile}}</strong></p>
+			<p><strong>{% trans "Colunas" %}: {{shape.c}}</strong></p>
+			<p><strong>{% trans "Linhas" %}: {{shape.l}}</strong></p>
+		</div>
+		<div class="col-md-2 pull-right">
+			<p class="pull-right"><a href="{% url 'numstats' id=document.id %}" class="btn btn-primary">{% trans "Estatísticas" %}</a></p>
+			<p class="pull-right"><a href="{% url 'index' %}" class="btn btn-info">{% trans "Voltar" %}</a></p>
+		</div>
+		<div class="table-responsive">  
+			<table class="table table-bordered table-hover table-striped">
+				<thead>
+					<tr>
+						{% for col in head.columns %}
+							<th>{{col}}</th>
+						{% endfor %}
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						{% for col in head.columns %}
+							<td><a href="{% url 'groupby' id=document.id col=col%}">Agrupar</a></td>
+						{% endfor %}
+					</tr>
+					{% for line in head.as_matrix %}
+						<tr>
+							{% for cel in line %}
+								<td>{{cel}}</td>
+							{% endfor %}
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

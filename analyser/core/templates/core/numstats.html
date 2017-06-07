@@ -1,23 +1,36 @@
-<p>Nome: {{doc.name}}</p>
-<br>
+{% extends "base.html" %}
+{% load i18n l10n %}
+{% block content %}
 
-<table border=1>
-	<thead>
-			<th>Coluna</th>
-		{% for col in data.columns %}
-			<th>{{col}}</th>
-		{% endfor %}
-	</thead>
-	<tbody>
-		{% for name, values in data.iterrows %}
-			<tr>
-					<td>{{name}}</td>
-				{% for val in values %}
-					<td>{{val|floatformat:2}}</td>
-				{% endfor %}
-			</tr>
-		{% endfor %}
-	</tbody>
+<div class="row">
+	<div class="col-md-10 col-md-offset-1">
+		<div class="col-md-7">
+			<h3>{% trans "Nome" %}: {{doc.name}}</h3>
+		</div>
+		<div class="col-md-2 pull-right">
+			<p class="pull-right"><a href="{% url 'document-detail' doc.id %}" class="btn btn-primary">{% trans "Voltar" %}</a></p>
+		</div>
+		<div class="table-responsive">  
+			<table class="table table-bordered table-hover table-striped">
+				<thead>
+					<th>Coluna</th>
+					{% for col in data.columns %}
+						<th>{{col}}</th>
+					{% endfor %}
+				</thead>
+				<tbody>
+					{% for name, values in data.iterrows %}
+						<tr>
+								<td>{{name}}</td>
+							{% for val in values %}
+								<td>{{val|floatformat:2}}</td>
+							{% endfor %}
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
 
-
-</table>
+{% endblock %}
