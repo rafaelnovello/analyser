@@ -10,6 +10,7 @@ from analyser.utils import get_delimiter
 
 import pandas as pd
 
+
 # Create your views here.
 def index(request):
     docs = Document.objects.all()
@@ -18,6 +19,7 @@ def index(request):
         'core/index.html',
         {'documents': docs}
     )
+
 
 def detail(request, id):
     doc = get_object_or_404(Document, pk=id)
@@ -38,12 +40,13 @@ def detail(request, id):
         'shape': shape
     })
 
+
 def create(request):
     form = DocumentForm(request.POST or None, request.FILES or None)
 
     if form.is_valid():
         form.save()
-        return HttpResponseRedirect('/core/')
+        return HttpResponseRedirect('/')
 
     return render(
         request,
@@ -51,13 +54,15 @@ def create(request):
         {'form': form}
     )
 
+
 def groupby(request, id, col):
+    col = int(col)
     doc = get_object_or_404(Document, pk=id)
     delimiter = get_delimiter(doc.docfile.path)
     data = pd.read_csv(doc.docfile.path, sep=delimiter, header=0)
-    clean = data[col].fillna('Missing Data')
+    clean = data[[col]].fillna('Missing Data')
     clean[clean == ''] = 'Unknown Data'
-    data[col] = clean
+    data[[col]] = clean
     grouped = data.groupby([col]).count()
     grouped = grouped.reset_index()
     return render(
@@ -67,6 +72,7 @@ def groupby(request, id, col):
         'document': doc,
         'column': col
     })
+
 
 def numstats(request, id):
     doc = get_object_or_404(Document, pk=id)
